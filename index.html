@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Vue-Summer-Camp-Week2</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+			crossorigin="anonymous"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css?family=Press+Start+2P"
+			rel="stylesheet"
+		/>
+		<link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" />
+		<link rel="stylesheet" href="/all.css" />
+	</head>
+	<body>
+		<div id="app">
+			<header>
+				<nav class="navbar navbar-light bg-warning fw-light">
+					<div class="container-fluid">
+						<i class="nes-mario"></i>
+						<i class="nes-icon coin is-large"></i>
+						<i class="nes-icon coin is-large"></i>
+
+						<span class="navbar-brand mb-0 h1">Summer-Vue-Camp Week-2</span>
+					</div>
+				</nav>
+			</header>
+			<div class="main mt-5">
+				<div class="container">
+					<div class="nes-container with-title is-centered container">
+						<div class="row">
+							<div class="col-8">
+								<p class="title">Calculator</p>
+								<div class="nes-field">
+									<h1>{{value}}</h1>
+									<span>{{ computeProcess }}</span>
+								</div>
+								<br />
+
+								<div class="nes-container is-rounded container w-80% mx-auto">
+									<div class="row">
+										<div class="col-8">
+											<div class="col">
+												<button
+													type="button"
+													class="nes-btn is-warning"
+													value="7"
+													@click="getNum"
+												>
+													7
+												</button>
+												<button
+													type="button"
+													class="nes-btn is-warning"
+													value="8"
+													@click="getNum"
+												>
+													8
+												</button>
+												<button
+													type="button"
+													class="nes-btn is-warning"
+													value="9"
+													@click="getNum"
+												>
+													9
+												</button>
+											</div>
+											<div class="col">
+												<button
+													type="button"
+													class="nes-btn is-warning"
+													value="4"
+													@click="getNum"
+												>
+													4
+												</button>
+												<button
+													type="button"
+													class="nes-btn is-warning"
+													value="5"
+													@click="getNum"
+												>
+													5
+												</button>
+												<button
+													type="button"
+													class="nes-btn is-warning"
+													value="6"
+													@click="getNum"
+												>
+													6
+												</button>
+											</div>
+											<div class="col">
+												<button
+													type="button"
+													class="nes-btn is-warning"
+													value="1"
+													@click="getNum"
+												>
+													1
+												</button>
+												<button
+													type="button"
+													class="nes-btn is-warning"
+													value="2"
+													@click="getNum"
+												>
+													2
+												</button>
+												<button
+													type="button"
+													class="nes-btn is-warning"
+													value="3"
+													@click="getNum"
+												>
+													3
+												</button>
+											</div>
+											<div class="col">
+												<button
+													type="button"
+													class="nes-btn is-warning"
+													value="#"
+													@click="getNum"
+												>
+													#
+												</button>
+												<button
+													type="button"
+													class="nes-btn is-warning"
+													value="0"
+													@click="getNum"
+												>
+													0
+												</button>
+												<button
+													type="button"
+													class="nes-btn is-warning"
+													value="."
+													@click="pointBtn"
+												>
+													.
+												</button>
+											</div>
+										</div>
+										<div class="col-4">
+											<button
+												type="button"
+												class="nes-btn is-primary"
+												@click="clearBtn"
+											>
+												AC
+											</button>
+											<button
+												type="button"
+												class="nes-btn is-success"
+												@click="negativeBtn"
+											>
+												±
+											</button>
+											<button
+												type="button"
+												class="nes-btn is-success"
+												value="÷"
+												@click="symbolBtn"
+											>
+												÷
+											</button>
+											<button
+												type="button"
+												class="nes-btn is-success"
+												value="×"
+												@click="symbolBtn"
+											>
+												×
+											</button>
+											<button
+												type="button"
+												class="nes-btn is-success"
+												value="-"
+												@click="symbolBtn"
+											>
+												-
+											</button>
+											<button
+												type="button"
+												class="nes-btn is-success"
+												value="+"
+												@click="symbolBtn"
+											>
+												+
+											</button>
+											<button
+												type="button"
+												class="nes-btn is-error"
+												@click="equalBtn"
+											>
+												=
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-4">
+								<span class="nes-text">History</span>
+								<div class="lists">
+									<ul class="nes-list is-disc">
+										<li v-for="(item, index) in history" :key="index">
+											{{item}}
+										</li>
+										<button
+											type="button"
+											class="nes-btn is-error"
+											@click="clearHistory"
+										>
+											Clear
+										</button>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
+			crossorigin="anonymous"
+		></script>
+		<script src="https://unpkg.com/vue@next"></script>
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+		<script
+			src="https://code.jquery.com/jquery-3.6.0.min.js"
+			integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+			crossorigin="anonymous"
+		></script>
+		<script>
+			Vue.createApp({
+				data() {
+					return {
+						value: 0,
+						preValue: 0,
+						tmpResult: 0,
+						point: "",
+						positive: true,
+						sign_now: "",
+						sign_last: "",
+						computeArray: [],
+						computeProcess: "",
+						history: [],
+					}
+				},
+				mounted() {},
+				methods: {
+					getNum(even) {
+						if (this.sign_now === "=") {
+							this.value = 0
+							this.point = ""
+							this.sign_now = ""
+							this.sign_last = ""
+							this.tmpResult = 0
+							this.computeArray = []
+							this.computeProcess = ""
+						}
+						if (this.point !== ".") {
+							this.value = this.value * 10 + parseInt(even.target.value, 10)
+						} else {
+							this.value = this.value + parseInt(even.target.value, 10) * 0.1
+						}
+
+						this.computeArray.push(`${even.target.value}`)
+						this.computeProcess = this.computeArray.join("")
+						console.log(this.value)
+					},
+					symbolBtn(even) {
+						let normal = /[1-9]/.test(this.computeProcess)
+						const len = this.computeArray.length
+						let is_number = /[1-9]/.test(this.computeArray[len - 1])
+						if (normal === true && is_number === true) {
+							this.sign_now = even.target.value
+
+							if (this.preValue === 0) {
+								this.preValue = JSON.stringify(JSON.parse(this.value))
+								console.log(this.preValue)
+							} else {
+								switch (this.sign_last) {
+									case "+":
+										this.tmpResult = parseFloat(this.preValue) + this.value
+										break
+									case "-":
+										this.tmpResult = parseFloat(this.preValue) - this.value
+										break
+									case "×":
+										this.tmpResult = parseFloat(this.preValue) * this.value
+										break
+									case "÷":
+										this.tmpResult = parseFloat(this.preValue) / this.value
+										break
+								}
+								this.preValue = this.tmpResult
+								console.log(this.preValue)
+							}
+							this.sign_last = this.sign_now
+							this.computeArray.push(`${this.sign_now}`)
+							this.computeProcess = this.computeArray.join("")
+							this.point = ""
+							this.value = 0
+						}
+					},
+					pointBtn() {
+						if (this.point === "") {
+							this.point = "."
+							this.computeArray.push(`${this.point}`)
+							this.computeProcess = this.computeArray.join("")
+						}
+					},
+					equalBtn() {
+						this.compute()
+						this.computeArray.push(` = ${this.value}`)
+						this.computeProcess = this.computeArray.join("")
+						this.history.unshift(this.computeProcess)
+						localStorage.setItem("history", JSON.stringify(this.history))
+						this.preValue = 0
+						this.sign_now = "="
+					},
+					compute() {
+						switch (this.sign_last) {
+							case "+":
+								this.value = parseFloat(this.preValue) + this.value
+								break
+							case "-":
+								this.value = parseFloat(this.preValue) - this.value
+								break
+							case "×":
+								this.value = parseFloat(this.preValue) * this.value
+								break
+							case "÷":
+								this.value = parseFloat(this.preValue) / this.value
+								break
+						}
+					},
+					negativeBtn() {
+						this.positive = !this.positive
+						this.value *= -1
+						const len = this.computeArray.length
+
+						let last_sing = this.computeArray.reverse().find((item) => {
+							return (
+								item === "+" || item === "-" || item === "×" || item === "÷"
+							)
+						})
+						let sing_index = this.computeArray.indexOf(last_sing)
+						this.computeArray.reverse()
+						if (sing_index === -1) {
+							this.computeArray.splice(0, 0, "-")
+						} else {
+							this.computeArray.splice(len - sing_index, 0, "-")
+						}
+					},
+					clearBtn() {
+						this.value = 0
+						this.preValue = 0
+						this.point = ""
+						this.sign_now = ""
+						this.sign_last = ""
+						this.tmpResult = 0
+						this.computeArray = []
+						this.computeProcess = ""
+					},
+					clearHistory() {
+						localStorage.setItem("history", JSON.stringify([]))
+						this.history = []
+					},
+					checkLocal() {
+						if (
+							typeof Storage == "undefined" ||
+							JSON.parse(localStorage.getItem("computedHistory")) === null
+						) {
+							this.history = []
+						} else {
+							this.history = JSON.parse(localStorage.getItem("computedHistory"))
+						}
+					},
+					clearHistory() {
+						this.history = []
+						localStorage.removeItem("constHistory")
+					},
+				},
+				mounted() {
+					this.checkLocal()
+				},
+			}).mount("#app")
+		</script>
+	</body>
+</html>
