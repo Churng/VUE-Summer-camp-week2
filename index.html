@@ -265,6 +265,8 @@
 				},
 				mounted() {},
 				methods: {
+					//按數字運算
+					//
 					getNum(even) {
 						if (this.sign_now === "=") {
 							this.value = 0
@@ -283,7 +285,7 @@
 
 						this.computeArray.push(`${even.target.value}`)
 						this.computeProcess = this.computeArray.join("")
-						console.log(this.value)
+						// console.log(this.value)
 					},
 					symbolBtn(even) {
 						let normal = /[1-9]/.test(this.computeProcess)
@@ -291,10 +293,9 @@
 						let is_number = /[1-9]/.test(this.computeArray[len - 1])
 						if (normal === true && is_number === true) {
 							this.sign_now = even.target.value
-
 							if (this.preValue === 0) {
 								this.preValue = JSON.stringify(JSON.parse(this.value))
-								console.log(this.preValue)
+								// console.log(this.preValue)
 							} else {
 								switch (this.sign_last) {
 									case "+":
@@ -379,10 +380,6 @@
 						this.tmpResult = 0
 						this.computeArray = []
 						this.computeProcess = ""
-					},
-					clearHistory() {
-						localStorage.setItem("history", JSON.stringify([]))
-						this.history = []
 					},
 					checkLocal() {
 						if (
